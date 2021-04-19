@@ -1,0 +1,4 @@
+leer("ingrese valor: ", valorIngresado);
+pi = 3.14;
+valorCalculado = valorIngresado * pi + 34;
+escribir("valorCalculado: ", valorCalculado)
