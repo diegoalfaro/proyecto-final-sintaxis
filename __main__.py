@@ -9,7 +9,7 @@ from AnalizadorSintactico import AnalizadorSintactico
 from Ejecucion import evaluarPrograma
 from Utilidades import modoDebug
 from Textos import ERROR_GENERICO, ERROR_LEXICO, ERROR_SINTACTICO
-import Errores
+from Errores import ErrorLexico, ErrorSintactico
 
 if __name__ == '__main__':
     if (len(sys.argv) < 2):
@@ -33,12 +33,18 @@ if __name__ == '__main__':
             if modoDebug():
                 print("Ejecutamos el programa...")
             evaluarPrograma(arbol, tablaSimbolos)
-        except Errores.ErrorLexico as err:
+        except ErrorLexico as err:
             print(ERROR_LEXICO.format(linea=err.linea, posicion=err.posicion))
-        except Errores.ErrorSintactico:
+            if not modoDebug():
+                exit(1)
+        except ErrorSintactico:
             print(ERROR_SINTACTICO)
-        except:
+            if not modoDebug():
+                exit(1)
+        except Exception as err:
             print(ERROR_GENERICO)
+            if not modoDebug():
+                exit(1)
         finally:
             archivo.close()
             if modoDebug():

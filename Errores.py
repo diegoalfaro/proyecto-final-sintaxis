@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class ErrorLexico(Exception):
-    linea: str
-    posicion: int
+    def __init__(self, linea, posicion): 
+        self.linea = linea
+        self.posicion = posicion
 
 class ErrorSintactico(Exception): ...

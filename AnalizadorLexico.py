@@ -32,4 +32,4 @@ class AnalizadorLexico():
                 self.x += + len(lexema)
                 return (True, componenteLexico, lexema)
         
-        raise ErrorLexico(linea=self.y+1, posicion=self.x+1)
+        raise ErrorLexico(linea = self.y+1, posicion = self.x+1)
