@@ -10,11 +10,10 @@
 
 ## Configurar Debugger
 
+Para configurar el Debugger para VS Code se debe agregar este archivo en `.vscode/launch.json`:
+
 ```json
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
@@ -30,6 +29,13 @@
 ```
 
 ### Correr intérprete sin Docker
+
+Para correr el intérprete con Docker se puede usar `python3` o `python`:
+
+```sh
+# Este ejemplo correría el programa ejemplos/test.txt
+python3 . ejemplos/test.txt
+```
 
 ### Correr intérprete con Docker
 
