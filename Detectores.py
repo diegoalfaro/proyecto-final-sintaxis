@@ -31,6 +31,14 @@ def esSimbolo(codigoFuente: str, x: int, y: int) -> (bool, str, str):
             return ComponentesLexicos.parentesisAbre
         elif aux == ")":
             return ComponentesLexicos.parentesisCierra
+        elif aux == "[":
+            return ComponentesLexicos.corcheteAbre
+        elif aux == "]":
+            return ComponentesLexicos.corcheteCierra
+        elif aux == "{":
+            return ComponentesLexicos.llaveAbre
+        elif aux == "}":
+            return ComponentesLexicos.llaveCierra
         else:
             return None
     lexema = leerCaracter(codigoFuente, x, y)
@@ -166,19 +174,12 @@ def esConstReal(codigoFuente: str, x: int, y: int) -> (bool, str, str):
     else:
         return (False, None, None)
 
-def esLeer(codigoFuente: str, x: int, y: int) -> (bool, str, str):
+def esPalabraReservada(codigoFuente: str, x: int, y: int) -> (bool, str, str):
     linea = codigoFuente[y]
-    if linea.lower().startswith("leer", x):
-        return (True, "leer", ComponentesLexicos.leer)
-    else:
-        return (False, None, None)
-
-def esEscribir(codigoFuente: str, x: int, y: int) -> (bool, str, str):
-    linea = codigoFuente[y]
-    if linea.lower().startswith("escribir", x):
-        return (True, "escribir", ComponentesLexicos.escribir)
-    else:
-        return (False, None, None)
+    for palabra in ComponentesLexicos.palabrasReservadas:
+        if linea.lower().startswith(palabra, x):
+            return (True, palabra, palabra)
+    return (False, None, None)
 
 def esCadena(codigoFuente: str, x: int, y: int) -> (bool, str, str):
     def simbCAD(aux: str)-> int:
@@ -230,8 +231,7 @@ def esCadena(codigoFuente: str, x: int, y: int) -> (bool, str, str):
 
 detectores = [
     esConstReal,
-    esEscribir,
-    esLeer,
+    esPalabraReservada,
     esSimbolo,
     esId,
     esCadena,

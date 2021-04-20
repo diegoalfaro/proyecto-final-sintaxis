@@ -13,10 +13,12 @@ class AnalizadorLexico():
         self.codigoFuente = archivo.readlines()
         self.tablaDeSimbolos = tablaDeSimbolos
         self.detectores = detectores
+        self.caractesIgnorados = [' ', '\t']
+        self.caractesDeCierre = ['\n']
 
     def siguienteComponenteLexico(self) -> (bool, str, str): #devuelve componente lexico, y lexema
 
-        while self.y < len(self.codigoFuente) and self.x < len(self.codigoFuente[self.y]) and self.codigoFuente[self.y][self.x] == " "  and self.codigoFuente[self.y][self.x] != "\n": #mientras sea espacio o salto de pagina avanza uno, sin salirse del rang
+        while self.y < len(self.codigoFuente) and self.x < len(self.codigoFuente[self.y]) and self.codigoFuente[self.y][self.x] in self.caractesIgnorados  and self.codigoFuente[self.y][self.x] not in  self.caractesDeCierre:
             self.x += 1
 
         while self.y < (len(self.codigoFuente)-1) and self.codigoFuente[self.y][self.x] == "\n":

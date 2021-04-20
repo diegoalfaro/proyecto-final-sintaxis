@@ -8,7 +8,7 @@ from AnalizadorLexico import AnalizadorLexico
 from AnalizadorSintactico import AnalizadorSintactico
 from Ejecucion import evaluarPrograma
 from Utilidades import modoDebug
-from Textos import ERROR_GENERICO, ERROR_LEXICO, ERROR_SINTACTICO
+from Textos import ERROR_GENERICO, ERROR_LEXICO, ERROR_SINTACTICO_TERMINAL, ERROR_SINTACTICO_VARIABLE
 from Errores import ErrorLexico, ErrorSintactico
 
 if __name__ == '__main__':
@@ -37,8 +37,12 @@ if __name__ == '__main__':
             print(ERROR_LEXICO.format(linea=err.linea, posicion=err.posicion))
             if not modoDebug():
                 exit(1)
-        except ErrorSintactico:
-            print(ERROR_SINTACTICO)
+        except ErrorSintactico as err:
+            if err.terminal:
+                (esperado, componenteLexico) = err.tupla
+                print(ERROR_SINTACTICO_TERMINAL.format(esperado = esperado, componenteLexico=componenteLexico))
+            else:
+                print(ERROR_SINTACTICO_VARIABLE.format(tupla=err.tupla))
             if not modoDebug():
                 exit(1)
         except Exception as err:

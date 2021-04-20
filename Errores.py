@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 class ErrorLexico(Exception):
-    def __init__(self, linea, posicion): 
+    def __init__(self, linea: int, posicion: int): 
         self.linea = linea
         self.posicion = posicion
 
-class ErrorSintactico(Exception): ...
+class ErrorSintactico(Exception):
+    def __init__(self, terminal: bool, tupla=tuple): 
+        self.terminal = tupla
+        self.tupla = tupla

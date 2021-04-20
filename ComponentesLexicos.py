@@ -1,30 +1,120 @@
 # -*- coding: utf-8 -*-
 
-igual = "igual"
-mas = "mas"
-menos = "menos"
-por = "por"
-dividido = "dividido"
-puntoycoma= "puntoycoma"
-coma = "coma"
-punto = "punto"
-parentesisAbre = "parentesisAbre"
-parentesisCierra = "parentesisCierra"
+# Terminales
+
 cadena = "cadena"
-leer = "leer"
-escribir = "escribir"
-real = "real"
-id = "id"
+coma = ","
+corcheteAbre = "["
+corcheteCierra = "]"
+dividido = "/"
+epsilon = "epsilon"
 errorLexico = "ErrorLexico"
-Z = "Z"
+escribir = "escribir"
+id = "id"
+igual = "="
+leer = "leer"
+llaveAbre = "{"
+llaveCierra = "}"
+mas = "+"
+menos = "-"
+parentesisAbre = "("
+parentesisCierra = ")"
+peso = "$"
+por = "*"
+punto = "."
+puntoycoma = ";"
+real = "real"
+si = "si"
+sino = "sino"
+mientras = "mientras"
+verdadero = "verdadero"
+falso = "falso"
+
+palabrasReservadas = [
+    sino,
+    si,
+    mientras,
+    escribir,
+    leer,
+    verdadero,
+    falso
+]
+
+terminales = {
+    cadena,
+    coma,
+    corcheteAbre,
+    corcheteCierra,
+    dividido,
+    epsilon,
+    errorLexico,
+    escribir,
+    id,
+    igual,
+    leer,
+    llaveAbre,
+    llaveCierra,
+    mas,
+    menos,
+    mientras,
+    parentesisAbre,
+    parentesisCierra,
+    parentesisCierra,
+    peso,
+    por,
+    punto,
+    puntoycoma,
+    real,
+    si,
+    sino,
+    verdadero,
+    falso
+}
+
+# Variables
+
+PROGRAMA = "PROGRAMA"
+FUNCION = "FUNCION"
+OTRAFUNCION = "OTRAFUNCION"
+PARAMETROS = "PARAMETROS"
+PARAMETRO = "PARAMETRO"
+OTROPARAMETRO = "OTROPARAMETRO"
+CUERPO = "CUERPO"
+LISTASENTENCIAS = "LISTASENTENCIAS"
+SENTENCIA = "SENTENCIA"
+ASIGNACION = "ASIGNACION"
+CONDICIONAL = "CONDICIONAL"
+SINO = "SINO"
+CICLO = "CICLO"
+LECTURA = "LECTURA"
+ESCRITURA = "ESCRITURA"
+CONDICION = "CONDICION"
 A = "A"
 Q = "Q"
+Z = "Z"
 H = "H"
 N = "N"
 
-epsilon = "epsilon"
-peso = "peso"
-PROGRAMA = "PROGRAMA"
-
-terminales = [escribir, leer, parentesisAbre, parentesisCierra, mas, menos, por, dividido, cadena, coma, puntoycoma, id, punto, real, igual, errorLexico, epsilon, peso]
-variables = [PROGRAMA, A, Q, Z, H, N]
+variables = {
+    PROGRAMA,
+    FUNCION,
+    OTRAFUNCION,
+    PARAMETROS,
+    PARAMETRO,
+    OTROPARAMETRO,
+    CUERPO,
+    LISTASENTENCIAS,
+    SENTENCIA,
+    ASIGNACION,
+    CONDICIONAL,
+    SINO,
+    CICLO,
+    LECTURA,
+    ESCRITURA,
+    CONDICION,
+    A,
+    Q,
+    Z,
+    H,
+    N,
+}

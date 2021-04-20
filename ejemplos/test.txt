@@ -1,4 +1,19 @@
+principal (param1,param2) {
 leer("ingrese valor: ", valorIngresado);
 pi = 3.14;
 valorCalculado = valorIngresado * pi + 34;
-escribir("valorCalculado: ", valorCalculado)
+escribir("valorCalculado: ", valorCalculado);
+si(falso){
+escribir("si: ", valorCalculado);
+}sino{
+};
+mientras(verdadero){
+i = i + 1;
+si(falso){
+escribir("mientras: ", i);
+};
+};
+}
+funcion2 (param4) {
+
+}

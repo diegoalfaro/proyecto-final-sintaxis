@@ -44,8 +44,8 @@ class AnalizadorSintactico():
                     if modoDebug():
                         print(DEBUG_LEXICO.format(componenteLexico=componenteLexico, lexema=lexema))
                 else:
-                    raise ErrorSintactico
-
+                    raise ErrorSintactico(terminal = True, tupla = (X, componenteLexico))
+                    
             elif X in ComponentesLexicos.variables:
                 tupla = (X, componenteLexico)
                 if tupla in TAS:
@@ -64,4 +64,4 @@ class AnalizadorSintactico():
                         if auxNodo != None and auxTAS != ComponentesLexicos.epsilon:
                             self.pilaNodos.append(auxNodo)
                 else:
-                    raise ErrorSintactico
+                    raise ErrorSintactico(terminal = False, tupla = tupla)
