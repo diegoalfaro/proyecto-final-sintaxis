@@ -1,4 +1,6 @@
 FROM python:3
-WORKDIR /project
+WORKDIR /proyecto
 COPY . .
-ENTRYPOINT [ "python3" "." ]
+WORKDIR /programas
+VOLUME [ "/programas" ]
+ENTRYPOINT [ "python3", "/proyecto" ]
