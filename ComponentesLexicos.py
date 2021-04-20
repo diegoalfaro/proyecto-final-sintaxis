@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 igual = "igual"
 mas = "mas"
 menos = "menos"
@@ -16,12 +18,13 @@ id = "id"
 errorLexico = "ErrorLexico"
 Z = "Z"
 A = "A"
-epsilon = "epsilon"
 Q = "Q"
 H = "H"
 N = "N"
+
+epsilon = "epsilon"
 peso = "peso"
-S= "S"
+PROGRAMA = "PROGRAMA"
 
 terminales = [escribir, leer, parentesisAbre, parentesisCierra, mas, menos, por, dividido, cadena, coma, puntoycoma, id, punto, real, igual, errorLexico, epsilon, peso]
-variables = [S, A, Q, Z, H, N]
+variables = [PROGRAMA, A, Q, Z, H, N]

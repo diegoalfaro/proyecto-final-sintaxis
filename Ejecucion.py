@@ -1,26 +1,25 @@
 # -*- coding: utf-8 -*-
 
-from TablaDeSimbolos import TablaDeSimbolos
 from Arbol import Nodo
 import ComponentesLexicos
 
 #< S > -> < sentencia > < A >
-def evaluarS(arbol: Nodo, ts: TablaDeSimbolos):
+def evaluarPrograma(arbol: Nodo, ts: dict):
     evaluarSentencia(arbol.hijos[0], ts)
     evaluarA(arbol.hijos[1], ts)
 
 #< A > -> ; < sentencia> <A> | ε
-def evaluarA(arbol: Nodo, ts: TablaDeSimbolos):
+def evaluarA(arbol: Nodo, ts: dict):
     if len(arbol.hijos)>=1 and arbol.hijos[0].getDato()== ComponentesLexicos.puntoycoma:
         evaluarSentencia(arbol.hijos[1] ,ts)
         evaluarA(arbol.hijos[2] ,ts)
 
 #<sentencia> ::= leer(cadena, id) | escribir(texto, < expr_arit_c > < H > < N > ) | id = < expr_arit_c > < H > < N >
-def evaluarSentencia(arbol: Nodo, ts: TablaDeSimbolos):
+def evaluarSentencia(arbol: Nodo, ts: dict):
     if len(arbol.hijos)>=1 and arbol.hijos[0].getDato()== ComponentesLexicos.leer:
         if len(arbol.hijos[2].hijos) == 1:
             print(arbol.hijos[2].hijos[0].getDato()[1:-1], end='')
-        ts.actualizarTS(arbol.hijos[4].hijos[0].getDato(), input())
+        ts[arbol.hijos[4].hijos[0].getDato()] = input()
     elif len(arbol.hijos)>=1 and arbol.hijos[0].getDato() == ComponentesLexicos.escribir:
         if len(arbol.hijos[2].hijos) == 1:
             print(arbol.hijos[2].hijos[0].getDato()[1:-1], end='')
@@ -32,7 +31,7 @@ def evaluarSentencia(arbol: Nodo, ts: TablaDeSimbolos):
         res = evaluarExprArit(arbol.hijos[2], ts)
         res = evaluarH(arbol.hijos[3], ts, res)
         res = evaluarN(arbol.hijos[4], ts, res)
-        ts.actualizarTS(arbol.hijos[0].hijos[0].getDato(), str(res))
+        ts[arbol.hijos[0].hijos[0].getDato()] = str(res)
 
 #< N >::= + < expr_arit_c > < H > < N > | - < expr_arit_c > < H > < N > | ε
 def evaluarN(arbol, ts, res):
@@ -57,11 +56,13 @@ def evaluarH(arbol, ts, res: int):
     return res
 
 #< expr_arit_c >::=    id | const | ( < expr_arit_c > < H > < N >)
-def evaluarExprArit(arbol: Nodo, ts: TablaDeSimbolos):
+def evaluarExprArit(arbol: Nodo, ts: dict):
     if len(arbol.hijos)>=1 and arbol.hijos[0].getDato() == ComponentesLexicos.id:
-        return float(ts.devolverIdDato(arbol.hijos[0].hijos[0].getDato()))
+        id = arbol.hijos[0].hijos[0].getDato()
+        return float(ts[id] if id in ts.keys() else 0)
     elif len(arbol.hijos)>=1 and arbol.hijos[0].getDato() == ComponentesLexicos.real:
-        return float(arbol.hijos[0].hijos[0].getDato())
+        numero = arbol.hijos[0].hijos[0].getDato()
+        return float(numero)
     elif len(arbol.hijos)>=1 and arbol.hijos[0].getDato() == ComponentesLexicos.parentesisAbre:
         res = evaluarExprArit(arbol.hijos[1], ts)
         res = evaluarH(arbol.hijos[2], ts, res)

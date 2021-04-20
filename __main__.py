@@ -6,13 +6,10 @@ import time
 
 from AnalizadorLexico import AnalizadorLexico
 from AnalizadorSintactico import AnalizadorSintactico
-from TablaDeSimbolos import TablaDeSimbolos
-from Ejecucion import evaluarS
-
-def debugger_is_active() -> bool:
-    """Return if the debugger is currently active"""
-    gettrace = getattr(sys, 'gettrace', lambda : None) 
-    return gettrace() is not None
+from Ejecucion import evaluarPrograma
+from Utilidades import modoDebug
+from Textos import ERROR_GENERICO, ERROR_LEXICO, ERROR_SINTACTICO
+import Errores
 
 if __name__ == '__main__':
     if (len(sys.argv) < 2):
@@ -25,14 +22,26 @@ if __name__ == '__main__':
     else:
         try:
             archivo = open(rutaArchivoCodigoFuente)
-            tablaSimbolos = TablaDeSimbolos()
+            tablaSimbolos = {}
             analizadorLexico = AnalizadorLexico(archivo, tablaSimbolos)
             analizadorSintactico = AnalizadorSintactico(analizadorLexico)
+            if modoDebug():
+                print("Analizamos lexica y sintacticamente el programa...")
             arbol = analizadorSintactico.analizar()
-            evaluarS(arbol, tablaSimbolos)
+            if modoDebug():
+                print(arbol)
+            if modoDebug():
+                print("Ejecutamos el programa...")
+            evaluarPrograma(arbol, tablaSimbolos)
+        except Errores.ErrorLexico as err:
+            print(ERROR_LEXICO.format(linea=err.linea, posicion=err.posicion))
+        except Errores.ErrorSintactico:
+            print(ERROR_SINTACTICO)
+        except:
+            print(ERROR_GENERICO)
         finally:
             archivo.close()
-            if debugger_is_active():
+            if modoDebug():
                 print("Se queda el programa esperando porque esta en modo DEBUG")
                 while True:
                     time.sleep(5)

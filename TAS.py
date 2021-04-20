@@ -4,9 +4,9 @@ import AnalizadorLexico as s
 from ComponentesLexicos import *
 
 TAS = {
-    (S, leer): [Z, A],
-    (S, escribir): [Z, A],
-    (S, id): [Z, A],
+    (PROGRAMA, leer): [Z, A],
+    (PROGRAMA, escribir): [Z, A],
+    (PROGRAMA, id): [Z, A],
     (A, puntoycoma): [puntoycoma, Z, A],
     (A, peso): [epsilon],
     (Z, leer): [leer, parentesisAbre, cadena, coma, id, parentesisCierra],
