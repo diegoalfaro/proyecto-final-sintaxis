@@ -33,23 +33,23 @@ if __name__ == '__main__':
             if modoDebug():
                 print("Ejecutamos el programa...")
             evaluarPrograma(arbol, tablaSimbolos)
-        except ErrorLexico as err:
-            print(Textos.ERROR_LEXICO.format(linea=err.linea, posicion=err.posicion))
+        except ErrorLexico as error:
+            print(Textos.ERROR_LEXICO.format(linea=error.linea, posicion=error.posicion))
             if not modoDebug():
                 exit(1)
-        except ErrorSintactico as err:
-            if err.terminal:
-                (esperado, componenteLexico) = err.tupla
+        except ErrorSintactico as error:
+            if error.terminal:
+                (esperado, componenteLexico) = error.tupla
                 print(Textos.ERROR_SINTACTICO_TERMINAL.format(esperado = esperado, componenteLexico=componenteLexico))
             else:
-                print(Textos.ERROR_SINTACTICO_VARIABLE.format(tupla=err.tupla))
+                print(Textos.ERROR_SINTACTICO_VARIABLE.format(tupla=error.tupla))
             if not modoDebug():
                 exit(1)
-        except ErrorEjecucion:
-            print(Textos.ERROR_EJECUCION)
+        except ErrorEjecucion as error:
+            print(Textos.ERROR_EJECUCION.format(mensaje = error.mensaje))
             if not modoDebug():
                 exit(1)
-        except Exception as err:
+        except Exception:
             print(Textos.ERROR_GENERICO)
             if not modoDebug():
                 exit(1)

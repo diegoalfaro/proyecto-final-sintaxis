@@ -73,24 +73,19 @@ TAS = {
     (ESCRITURA, escribir): [escribir, parentesisAbre, cadena, ARGUMENTOS, parentesisCierra],
 
     #ARGUMENTOS
-    (ARGUMENTOS, coma): [coma, F, G],
+    (ARGUMENTOS, coma): [coma, EXPARIT, ARGUMENTOS],
     (ARGUMENTOS, parentesisCierra): [epsilon],
-    (ARGUMENTOS, id): [F, G],
-    (ARGUMENTOS, real): [F, G],
-
-    #F
-    (F, ejecutar): [EJECUCION],
-    (F, id): [id],
-    (F, real): [real],
-
-    #G
-    (G, coma): [coma, F, G],
-    (G, parentesisCierra): [epsilon],
 
     #EXPARIT
     (EXPARIT, ejecutar): [J, K],
     (EXPARIT, id): [J, K],
     (EXPARIT, real): [J, K],
+    (EXPARIT, raiz): [J, K],
+
+    #F
+    (F, ejecutar): [EJECUCION],
+    (F, id): [id],
+    (F, real): [real],
 
     #K
     (K, parentesisCierra): [epsilon],
@@ -104,6 +99,7 @@ TAS = {
     (K, mayorIgual): [epsilon],
     (K, menorIgual): [epsilon],
     (K, corcheteCierra): [epsilon],
+    (K, coma): [epsilon],
 
     #J
     (J, ejecutar): [M, N],
@@ -125,6 +121,7 @@ TAS = {
     (N, mayorIgual): [epsilon],
     (N, menorIgual): [epsilon],
     (N, corcheteCierra): [epsilon],
+    (N, coma): [epsilon],
 
     #M
     (M, ejecutar): [F, R],
@@ -147,6 +144,7 @@ TAS = {
     (R, mayorIgual): [epsilon],
     (R, menorIgual): [epsilon],
     (R, corcheteCierra): [epsilon],
+    (R, coma): [epsilon],
 
     #CONDICION
     (CONDICION, id): [S, T],

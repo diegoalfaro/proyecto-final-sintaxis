@@ -2,6 +2,7 @@
 from Arbol import Nodo
 import ComponentesLexicos
 from Errores import ErrorEjecucion
+from math import sqrt, pow
 
 def evaluarPrograma(arbol: Nodo, ts: dict):
     funcion = arbol.hijos[0]
@@ -13,7 +14,7 @@ def evaluarPrograma(arbol: Nodo, ts: dict):
         listaSentencias = funcion.hijos[4].hijos[1]
         evaluarListaSentencias(listaSentencias, ts)
     else:
-        raise ErrorEjecucion
+        raise ErrorEjecucion(mensaje="No existe la función principal")
 
 def evaluarFuncion(arbol: Nodo, ts: dict):
     id = arbol.hijos[0].hijos[0].getDato()
@@ -98,7 +99,7 @@ def evaluarEjecucion(arbol: Nodo, ts: dict):
         listaSentencias = funcion.hijos[4].hijos[1]
         return evaluarListaSentencias(listaSentencias, tablaSimbolosFuncion)
     else:
-        raise ErrorEjecucion
+        raise ErrorEjecucion("No está definida la función {funcion}".format(funcion=id))
 
 def evaluarParametros(arbol: Nodo, ts: dict):
     if arbol.hijos[0].getDato() != ComponentesLexicos.epsilon:
@@ -145,9 +146,12 @@ def evaluarK(arbol: Nodo, ts: dict, entrada: float):
         return entrada
 
 def evaluarM(arbol: Nodo, ts: dict):
-    resultadoF = evaluarF(arbol.hijos[0], ts)
-    resultadoR = evaluarR(arbol.hijos[1], ts, resultadoF)
-    return resultadoR
+    if arbol.hijos[0].getDato() == ComponentesLexicos.raiz:
+        return sqrt(evaluarM(arbol.hijos[2], ts))
+    else:
+        resultadoF = evaluarF(arbol.hijos[0], ts)
+        resultadoR = evaluarR(arbol.hijos[1], ts, resultadoF)
+        return resultadoR
 
 def evaluarN(arbol: Nodo, ts: dict, entrada: float):
     if arbol.hijos[0].getDato() != ComponentesLexicos.epsilon:
@@ -172,25 +176,17 @@ def evaluarF(arbol: Nodo, ts: dict):
 
 def evaluarR(arbol: Nodo, ts: dict, entrada: float):
     if arbol.hijos[0].getDato() != ComponentesLexicos.epsilon:
-        return pow(entrada)
+        return pow(entrada, 2)
     else:
         return entrada
 
-def evaluarG(arbol: Nodo, ts: dict, entrada: list):
+def evaluarArgumentos(arbol: Nodo, ts: dict, entrada: list = []):
     if arbol.hijos[0].getDato() != ComponentesLexicos.epsilon:
-        resultadoF = evaluarF(arbol.hijos[1], ts)
-        resultadoG = evaluarG(arbol.hijos[2], ts, [resultadoF])
-        return entrada + resultadoG
+        resultadoExparit = evaluarExparit(arbol.hijos[1], ts)
+        resultadoArgumentos = evaluarArgumentos(arbol.hijos[2], ts, [resultadoExparit])
+        return entrada + resultadoArgumentos
     else:
         return entrada
-
-def evaluarArgumentos(arbol: Nodo, ts: dict):
-    if arbol.hijos[0].getDato() != ComponentesLexicos.epsilon:
-        resultadoF = evaluarF(arbol.hijos[1], ts)
-        resultadoG = evaluarG(arbol.hijos[2], ts, [resultadoF])
-        return resultadoG
-    else:
-        return []
 
 def evaluarCondicion(arbol: Nodo, ts: dict):
     resultadoS = evaluarS(arbol.hijos[0], ts)
@@ -212,17 +208,17 @@ def evaluarT(arbol: Nodo, ts: dict, entrada: bool):
         return entrada
 
 def evaluarV(arbol: Nodo, ts: dict):
-    if (arbol.hijos[0].getDato() == ComponentesLexicos.verdadero):
+    if arbol.hijos[0].getDato() == ComponentesLexicos.verdadero:
         return True
-    if (arbol.hijos[0].getDato() == ComponentesLexicos.falso):
+    if arbol.hijos[0].getDato() == ComponentesLexicos.falso:
         return False
-    if (arbol.hijos[0].getDato() == ComponentesLexicos.corcheteAbre):
+    if arbol.hijos[0].getDato() == ComponentesLexicos.corcheteAbre:
         condicion = arbol.hijos[1]
         return evaluarCondicion(condicion, ts)
-    if (arbol.hijos[0].getDato() == ComponentesLexicos.negacion):
+    if arbol.hijos[0].getDato() == ComponentesLexicos.negacion:
         condicion = arbol.hijos[2]
         return not evaluarCondicion(condicion, ts)
-    if (arbol.hijos[0].getDato() == ComponentesLexicos.COMPARACION):
+    if arbol.hijos[0].getDato() == ComponentesLexicos.COMPARACION:
         comparacion = arbol.hijos[0]
         return evaluarComparacion(comparacion, ts)
 

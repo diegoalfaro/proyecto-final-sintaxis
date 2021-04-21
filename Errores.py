@@ -10,4 +10,6 @@ class ErrorSintactico(Exception):
         self.terminal = terminal
         self.tupla = tupla
 
-class ErrorEjecucion(Exception): ...
+class ErrorEjecucion(Exception):
+    def __init__(self, mensaje: bool):
+        self.mensaje = mensaje

@@ -27,7 +27,7 @@ def esId(codigoFuente: str, x: int, y: int) -> (bool, str, str):
         else:
             return 3
     def simbolo(aux: str) -> bool:
-        return True if aux in {'=', '+', '-', '.', '*', '/', ';', ',', '(', ')', '[', ']' } else False
+        return True if aux in {'=', '+', '-', '.', '*', '/', ';', ',', '(', ')', '[', ']', '^' } else False
     q0 = 0
     F = {1}
     # Q = (0,1,2)
@@ -74,7 +74,7 @@ def esConstReal(codigoFuente: str, x: int, y: int) -> (bool, str, str):
         else:
             return 4
     def simbolo(aux: str) -> bool:
-        return True if aux in {'=', '+', '*', '/', ';', ',', '(', ')', '[', ']'} else False
+        return True if aux in {'=', '+', '*', '/', ';', ',', '(', ')', '[', ']', '^'} else False
     q0=0
     F={4, 2, 7}
     #Q=range(1,9)
@@ -147,7 +147,7 @@ def esPalabraReservada(codigoFuente: str, x: int, y: int) -> (bool, str, str):
     linea = codigoFuente[y]
     if linea[x] in string.ascii_letters:
         for palabraReservada in ComponentesLexicos.palabrasReservadas:
-            palabra = ''.join(filter(lambda x: x in string.ascii_letters, linea[x:x+len(palabraReservada)+1]))
+            palabra = ''.join(filter(lambda x: x in (string.ascii_letters + string.digits), linea[x:x+len(palabraReservada)+1]))
             if palabraReservada == palabra:
                 return (True, palabraReservada, palabraReservada)
     return (False, None, None)
