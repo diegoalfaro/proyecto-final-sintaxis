@@ -1,19 +1,19 @@
-principal (param1,param2) {
-leer("ingrese valor: ", valorIngresado);
-pi = 3.14;
-valorCalculado = valorIngresado * pi + 34;
-escribir("valorCalculado: ", valorCalculado);
-si(falso){
-escribir("si: ", valorCalculado);
-}sino{
-};
-mientras(verdadero){
-i = i + 1;
-si(falso){
-escribir("mientras: ", i);
-};
-};
+principal () {
+    leer("asignar valor para param1: ", param1);
+    leer("asignar valor para param2: ", param2);
+    ejecutar(funcion, 1, 2);
+    ejecutar(funcion, 3, 4);
+    ejecutar(funcion, 5, 6);
+    escribir("valor de param1 y param2 en funcion principal: ", param1, param2);
+    param2 = 5;
 }
-funcion2 (param4) {
 
+funcion (param1, param2) {
+    param1 = param1 + param2;
+    param2 = param2 * 2;
+    escribir("valores de param1 y param2 en funcion: ", param1, param2);
+}
+
+funcionSinParam2 (param1) {
+    escribir("valores de param1 y param2 en funcionSinParam2: ", param1, param2);
 }

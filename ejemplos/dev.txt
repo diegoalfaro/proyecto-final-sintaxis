@@ -1,0 +1,24 @@
+principal (param1, param2) {
+    leer("ingrese valor: ", valorIngresado);
+    pi = 3.14;
+    valorCalculado = valorIngresado * pi + 34;
+    escribir("valorCalculado: ", valorCalculado, 5, 20);
+    si (~[pi < pi] y [4 > 6]) {
+        escribir("si: ", valorCalculado);
+    } sino {
+        resultado = 4 + ejecutar(funcion2, 6, 46, 67);
+        escribir("resultado: ", resultado);
+    };
+    mientras (i < 5) {
+        escribir("hasta aca llega");
+        i = i + 1;
+        si (i < 3) {
+            escribir("mientras:", i);
+        };
+    };
+}
+
+funcion2 (param1, param2, param3, param4) {
+    leer("leer: ", estoRetorna);
+    retornar(estoRetorna);
+}

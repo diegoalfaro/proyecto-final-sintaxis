@@ -7,5 +7,7 @@ class ErrorLexico(Exception):
 
 class ErrorSintactico(Exception):
     def __init__(self, terminal: bool, tupla=tuple): 
-        self.terminal = tupla
+        self.terminal = terminal
         self.tupla = tupla
+
+class ErrorEjecucion(Exception): ...
