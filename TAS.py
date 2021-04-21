@@ -176,18 +176,13 @@ TAS = {
     (W, corcheteCierra): [epsilon],
 
     #V
-    (V, id): [COMPARACION],
-    (V, raiz): [COMPARACION],
+    (V, id): [EXPARIT, OPERADOR, EXPARIT],
+    (V, raiz): [EXPARIT, OPERADOR, EXPARIT],
     (V, negacion): [negacion, corcheteAbre, CONDICION, corcheteCierra],
     (V, verdadero): [verdadero],
     (V, falso): [falso],
     (V, corcheteAbre): [corcheteAbre, CONDICION, corcheteCierra],
-    (V, real): [COMPARACION],
-
-    #COMPARACION
-    (COMPARACION, id): [EXPARIT, OPERADOR, EXPARIT],
-    (COMPARACION, raiz): [EXPARIT, OPERADOR, EXPARIT],
-    (COMPARACION, real): [EXPARIT, OPERADOR, EXPARIT],
+    (V, real): [EXPARIT, OPERADOR, EXPARIT],
 
     #OPERADOR
     (OPERADOR, igual): [igual],

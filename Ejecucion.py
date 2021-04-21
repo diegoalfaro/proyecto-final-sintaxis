@@ -218,9 +218,22 @@ def evaluarV(arbol: Nodo, ts: dict):
     if arbol.hijos[0].getDato() == ComponentesLexicos.negacion:
         condicion = arbol.hijos[2]
         return not evaluarCondicion(condicion, ts)
-    if arbol.hijos[0].getDato() == ComponentesLexicos.COMPARACION:
-        comparacion = arbol.hijos[0]
-        return evaluarComparacion(comparacion, ts)
+    if arbol.hijos[0].getDato() == ComponentesLexicos.EXPARIT:
+        exparitA = evaluarExparit(arbol.hijos[0], ts)
+        exparitB = evaluarExparit(arbol.hijos[2], ts)
+        simbolo = arbol.hijos[1].hijos[0].getDato()
+        if simbolo == ComponentesLexicos.igual:
+            return exparitA == exparitB
+        elif simbolo == ComponentesLexicos.diferente:
+            return exparitA != exparitB
+        elif simbolo == ComponentesLexicos.mayor:
+            return exparitA > exparitB
+        elif simbolo == ComponentesLexicos.menor:
+            return exparitA < exparitB
+        elif simbolo == ComponentesLexicos.mayorIgual:
+            return exparitA >= exparitB
+        elif simbolo == ComponentesLexicos.menorIgual:
+            return exparitA <= exparitB
 
 def evaluarW(arbol: Nodo, ts: dict, entrada: bool):
     if arbol.hijos[0].getDato() != ComponentesLexicos.epsilon:
@@ -230,20 +243,3 @@ def evaluarW(arbol: Nodo, ts: dict, entrada: bool):
             return resultadoV and resultadoW
     else:
         return entrada
-
-def evaluarComparacion(arbol: Nodo, ts: dict):
-    exparitA = evaluarExparit(arbol.hijos[0], ts)
-    exparitB = evaluarExparit(arbol.hijos[2], ts)
-    simbolo = arbol.hijos[1].hijos[0].getDato()
-    if simbolo == ComponentesLexicos.igual:
-        return exparitA == exparitB
-    elif simbolo == ComponentesLexicos.diferente:
-        return exparitA != exparitB
-    elif simbolo == ComponentesLexicos.mayor:
-        return exparitA > exparitB
-    elif simbolo == ComponentesLexicos.menor:
-        return exparitA < exparitB
-    elif simbolo == ComponentesLexicos.mayorIgual:
-        return exparitA >= exparitB
-    elif simbolo == ComponentesLexicos.menorIgual:
-        return exparitA <= exparitB
